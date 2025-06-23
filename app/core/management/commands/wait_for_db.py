@@ -1,3 +1,4 @@
+
 """
 Django command to wait for the database to be available.
 """
@@ -15,12 +16,13 @@ class Command(BaseCommand):
         """Entrypoint for command"""
         self.stdout.write("Waiting for database")
         db_up = False
+
         while db_up is False:
             try:
-                self.check(databases=['default'])
+                self.check(databases=["default"])
                 db_up = True
             except (Psycopg20pError, OperationalError):
                 self.stdout.write("Database unavailable, waiting 1 seconds")
                 time.sleep(1)
-                   
-        self.stdout.write(self.style.SUCCESS('Database available'))
+
+        self.stdout.write(self.style.SUCCESS("Database available"))
